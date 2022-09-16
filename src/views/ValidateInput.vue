@@ -11,7 +11,8 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType,reactive} from "vue";
+import { defineComponent, PropType,reactive,onMounted} from "vue";
+import { emitter } from "./ValidateForm.vue";
 const emailreg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
 interface RuleProp {
   type:'required' | 'email'|'range';
@@ -53,14 +54,20 @@ export default defineComponent({
               case 'range':
               passed = inputRef.val.length > 20;
               break;
-            default:
+            default:      
               break;
           }
           return passed;
         })
         inputRef.error = !allPassed
+        return allPassed;
+      }else {
+        return true
       }
     } 
+    onMounted(() => {
+      emitter.emit('form-item-create',validateinput)
+    } )
     return {
       inputRef,
       validateinput,
@@ -69,6 +76,3 @@ export default defineComponent({
   }
 })
 </script>
-<style lang="">
-  
-</style>
