@@ -5,17 +5,12 @@
     <form>
       <div class="mb-3">
         <label class="form-label">邮箱地址</label>
-        <validate-input :rules="emailRules"  v-model="emailRefVal"></validate-input>
+        <validate-input :rules="emailRules"  v-model="emailRefVal" placeholder="请输入邮箱地址" type="text"></validate-input>
         {{emailRefVal}}
       </div>
       <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">邮箱地址</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" v-model="emailRef.val" @blur="validateEmail">
-        <div class="form-text" v-if="emailRef.error">{{emailRef.message}}</div>
-      </div>
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <label  class="form-label">密码</label>
+        <validate-input  placeholder="请输入密码" type="text"></validate-input>
       </div>
     </form>
   </div>
@@ -71,7 +66,7 @@ export default defineComponent({
     ValidateInput
   },
   setup () {
-    const emailRefVal = ref('test')
+    const emailRefVal = ref('')
     const emailRules: RulesProp = [
       {type:'required',message: '电子邮箱不能为空'},
       {type:'email',message: '请输入正确的电子邮箱格式'},
