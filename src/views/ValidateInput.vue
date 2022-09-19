@@ -4,7 +4,6 @@
       :class="{'is-invalid': inputRef.error}" 
       :value="inputRef.val"
       @blur="validateinput"
-      @input="updateValue"
       v-bind:="$attrs"
       >
     <span v-if="inputRef.error" class="invalid-feedback">{{inputRef.message}}</span>
