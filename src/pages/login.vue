@@ -1,28 +1,33 @@
 <template>
   <div class="container">
-    <global-header :user="currentuser"></global-header>
-    <router-view></router-view>
+    <validate-form @onsubmit="submitForm">
+      <div class="mb-3">
+        <label class="form-label">邮箱地址</label>
+        <validate-input :rules="emailRules"  v-model="emailRefVal" placeholder="请输入邮箱地址" type="text" ref="inputRef"></validate-input>
+        {{emailRefVal}}
+      </div>
+      <div class="mb-3">
+        <label  class="form-label">密码</label>
+        <validate-input :rules="passwordRules" placeholder="请输入密码" type="text"></validate-input>
+      </div>
+      <template #submit>
+        <button class="btn btn-danger">submit</button>
+      </template>
+    </validate-form>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent,reactive,ref} from 'vue'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import GlobalHeader, { UserProps } from './views/GlobalHeader.vue'
-import ValidateInput, { RulesProp } from './views/ValidateInput.vue'
-import ValidateForm from './views/ValidateForm.vue'
-const user: UserProps = {
-  name: 'testName',
-  isLogin: false,
-  id: '111'
-}
-export default defineComponent({
-  name: 'App',
-  components: {
-    GlobalHeader,
-    ValidateInput,
+
+import { defineComponent,ref,reactive } from 'vue';
+import ValidateInput, { RulesProp } from '../views/ValidateInput.vue'
+import ValidateForm from '../views/ValidateForm.vue'
+
+export default defineComponent ({
+  name:'Login',
+  component :{
     ValidateForm
-  },
-  setup () {
+    },
+  setup(){
     const inputRef = ref()
     const emailRefVal = ref('')
     const emailRules: RulesProp = [
@@ -45,7 +50,6 @@ export default defineComponent({
       message: ''
     })
     return {
-      currentuser: user,
       emailRef,
       emailRules,
       emailRefVal,

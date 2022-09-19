@@ -2,10 +2,10 @@
   <div>
   <nav class="navbar navbar-dark bg-primary">
   <div class="container-fluid">
-  <a class="navbar-brand" href="#">者也</a>
+  <router-link class="navbar-brand" to='/'>者也</router-link>
   <ul v-if="!user.isLogin" class="list-inline mb-0">
     <li class="list-inline-item">
-    <a href="#" class="btn btn-outline-light my-2">登录</a>
+    <router-link to="/login" class="btn btn-outline-light my-2">登录</router-link>
    </li>
     <li class="list-inline-item">
     <a href="#" class="btn btn-outline-light my-2">注册</a>
