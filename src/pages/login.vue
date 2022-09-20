@@ -1,17 +1,27 @@
 <template>
   <div class="container">
-    <validate-form @onsubmit="submitForm">
+    <h5 class="my-4 text-center">登录到者也</h5>
+    <validate-form @onsubmit="clickLogin">
       <div class="mb-3">
         <label class="form-label">邮箱地址</label>
-        <validate-input :rules="emailRules"  v-model="emailRefVal" placeholder="请输入邮箱地址" type="text" ref="inputRef"></validate-input>
-        {{emailRefVal}}
+        <validate-input
+          :rules="emailRules"
+          v-model="emailRefVal"
+          placeholder="请输入邮箱地址"
+          type="text"
+          ref="inputRef"
+        />
       </div>
-      <div class="mb-3">
-        <label  class="form-label">密码</label>
-        <validate-input :rules="passwordRules" placeholder="请输入密码" type="text"></validate-input>
+      <div>
+        <label class="form-label">密码</label>
+        <Validate-input
+          type="password"
+          placeholder="请输入密码"
+          :rules="passwordRules"
+        />
       </div>
       <template #submit>
-        <button class="btn btn-danger">submit</button>
+        <button type="submit" class="btn btn-primary btn-block btn-large">登录</button>
       </template>
     </validate-form>
   </div>
@@ -22,11 +32,12 @@ import { defineComponent,ref,reactive } from 'vue';
 import ValidateInput, { RulesProp } from '../views/ValidateInput.vue'
 import ValidateForm from '../views/ValidateForm.vue'
 
-export default defineComponent ({
-  name:'Login',
-  component :{
+export default defineComponent({
+  name: 'App',
+  components :{
+    ValidateInput,
     ValidateForm
-    },
+  },
   setup(){
     const inputRef = ref()
     const emailRefVal = ref('')
@@ -39,7 +50,7 @@ export default defineComponent ({
     const passwordRules: RulesProp = [
       {type:'required',message: '密码不能为空'},
     ]
-    const submitForm = (result:Boolean) => {
+    const clickLogin = (result:Boolean) => {
       //父组件访问子组件方法 -> 添加 ref
       console.log(inputRef.value.validateinput())
       console.log('12313',result)
@@ -53,7 +64,7 @@ export default defineComponent ({
       emailRef,
       emailRules,
       emailRefVal,
-      submitForm,
+      clickLogin,
       inputRef,
       passwordRules
     }
