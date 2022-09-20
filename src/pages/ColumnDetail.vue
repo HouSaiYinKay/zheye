@@ -1,16 +1,34 @@
 <template>
-  <div>
-    <pre>{{route}}</pre>
+  <div class="column-detail-page w-75 mx-auto">
+    <div class="column-info row mb-4 border-bottom pb-4 align-items-center" v-if="currentColumn">
+      <div class="col-3 text-center">
+        <img :src="currentColumn?.avatar" :alt="currentColumn?.title" class="rounded-circle border border-light w-100 my-3 ">
+      </div>
+      <div class="col-9 textAlign-left">
+        <h4>{{currentColumn?.title}}</h4>
+        <p class="text-muted">{{currentColumn?.description}}</p>
+      </div>
+    </div>
   </div>
+  <post-list-view :list="postList"></post-list-view>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
+import { testPosts, ColumnPros,testData} from '@/testData';
+import  postListView from './PostList.vue'
 export default defineComponent({
+  components: {
+    postListView
+  },
   setup(props) {
     const route = useRoute()
+    const currentId = +route.params.id
+    const currentColumn =  testData.find(e => e.id === currentId)
+    const postList = testPosts.filter(post => post.columnId === currentId)
     return {
-      route
+      currentColumn,
+      postList
     }
   }
 })

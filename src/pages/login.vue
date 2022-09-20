@@ -31,7 +31,7 @@
 import { defineComponent,ref,reactive } from 'vue';
 import ValidateInput, { RulesProp } from '../views/ValidateInput.vue'
 import ValidateForm from '../views/ValidateForm.vue'
-
+import { useRouter } from 'vue-router';
 export default defineComponent({
   name: 'App',
   components :{
@@ -39,6 +39,7 @@ export default defineComponent({
     ValidateForm
   },
   setup(){
+    const router = useRouter()
     const inputRef = ref()
     const emailRefVal = ref('')
     const emailRules: RulesProp = [
@@ -53,7 +54,9 @@ export default defineComponent({
     const clickLogin = (result:Boolean) => {
       //父组件访问子组件方法 -> 添加 ref
       console.log(inputRef.value.validateinput())
-      console.log('12313',result)
+      if (result) {
+        router.push({name:'columnDetail',params:{id:'1111'}})
+      }
     }
     const emailRef = reactive ({
       val: '',

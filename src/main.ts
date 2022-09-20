@@ -4,6 +4,7 @@ import {createWebHistory,createRouter} from 'vue-router'
 import Home from './pages/home.vue'
 import Login from './pages/login.vue'
 import columnDetail from "./pages/ColumnDetail.vue";
+import { createStore } from 'vuex'
 const routes = [
   { path: '/', component: Home },
   { path: '/login', component: Login },
@@ -15,10 +16,23 @@ const router = createRouter({
   routes: routes
 })
 
-// 5. 创建并挂载根实例
+const store = createStore (
+  {
+    state: {
+      count:0
+    },
+    mutations:{
+      add(state) {
+        state.count++
+      }
+    }
+  }
+)
+
+store.commit('add')
+console.log(store.state.count)
 const app = createApp(App)
-//确保 _use_ 路由实例使
-//整个应用支持路由。
+
 app.use(router)
 
 app.mount('#app')
