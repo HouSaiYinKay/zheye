@@ -4,7 +4,7 @@
       <div class="card-body">
         <h4 class="card-title">{{ post.title }}</h4>
         <div class="row align-items-center pt-3">
-          <div class="col-3">
+          <div class="col-3" v-if="post.image">
             <img :src="post.image" class="rounded-lg w-100" :alt="post.title" />
           </div>
           <div class="col-9">

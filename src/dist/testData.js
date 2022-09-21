@@ -47,7 +47,7 @@ exports.testPosts = [
         columnId: 1
     },
     {
-        id: 2,
+        id: 1,
         title: '这是第二篇文章',
         content: 'this is the first post from England',
         image: 'https://img2.baidu.com/it/u=3744598050,4191464688&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500',

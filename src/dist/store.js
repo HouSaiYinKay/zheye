@@ -17,11 +17,15 @@ var store = vuex_1.createStore({
     state: {
         columns: testData_1.testData,
         posts: testData_1.testPosts,
-        user: { isLogin: false }
+        user: { isLogin: true, name: 'testname', columnId: 1 }
     },
     mutations: {
         login: function (state) {
             state.user = __assign(__assign({}, state.user), { isLogin: true, name: 'myname' });
+        },
+        createPost: function (state, newPost) {
+            state.posts.push(newPost);
+            console.log(newPost);
         }
     },
     getters: {
@@ -31,8 +35,8 @@ var store = vuex_1.createStore({
         getColumnById: function (state) { return function (id) {
             return state.columns.find(function (c) { return c.id === id; });
         }; },
-        getPostsById: function (state) { return function (pid) {
-            return state.posts.filter(function (p) { return p.id === pid; });
+        getPostsBycId: function (state) { return function (pid) {
+            return state.posts.filter(function (p) { return p.columnId === pid; });
         }; }
     }
 });
