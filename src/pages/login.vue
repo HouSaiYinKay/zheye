@@ -18,6 +18,7 @@
           type="password"
           placeholder="请输入密码"
           :rules="passwordRules"
+          v-model="passwordRefVal"
         />
       </div>
       <template #submit>
@@ -32,6 +33,8 @@ import { defineComponent,ref,reactive } from 'vue';
 import ValidateInput, { RulesProp } from '../views/ValidateInput.vue'
 import ValidateForm from '../views/ValidateForm.vue'
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex'
+
 export default defineComponent({
   name: 'App',
   components :{
@@ -39,15 +42,16 @@ export default defineComponent({
     ValidateForm
   },
   setup(){
+
+    const store = useStore()
     const router = useRouter()
     const inputRef = ref()
     const emailRefVal = ref('')
     const emailRules: RulesProp = [
       {type:'required',message: '电子邮箱不能为空'},
       {type:'email',message: '请输入正确的电子邮箱格式'},
-      {type:'range',message: '请输入不少于20个字符'},
-
     ]
+    const passwordRefVal = ref('')
     const passwordRules: RulesProp = [
       {type:'required',message: '密码不能为空'},
     ]
@@ -55,7 +59,8 @@ export default defineComponent({
       //父组件访问子组件方法 -> 添加 ref
       console.log(inputRef.value.validateinput())
       if (result) {
-        router.push({name:'columnDetail',params:{id:'1111'}})
+        router.push({name:'home'})
+        store.commit('login')
       }
     }
     const emailRef = reactive ({
@@ -69,7 +74,8 @@ export default defineComponent({
       emailRefVal,
       clickLogin,
       inputRef,
-      passwordRules
+      passwordRules,
+      passwordRefVal
     }
   }
 })

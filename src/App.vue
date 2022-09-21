@@ -5,11 +5,13 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent,reactive,ref} from 'vue'
+import { defineComponent,computed} from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import GlobalHeader, { UserProps } from './views/GlobalHeader.vue'
 import ValidateInput, { RulesProp } from './views/ValidateInput.vue'
 import ValidateForm from './views/ValidateForm.vue'
+import { useStore } from 'vuex'
+import { GlobalDataProps } from './store'
 const user: UserProps = {
   name: 'testName',
   isLogin: false,
@@ -23,35 +25,14 @@ export default defineComponent({
     ValidateForm
   },
   setup () {
-    const inputRef = ref()
-    const emailRefVal = ref('')
-    const emailRules: RulesProp = [
-      {type:'required',message: '电子邮箱不能为空'},
-      {type:'email',message: '请输入正确的电子邮箱格式'},
-      {type:'range',message: '请输入不少于20个字符'},
 
-    ]
-    const passwordRules: RulesProp = [
-      {type:'required',message: '密码不能为空'},
-    ]
-    const submitForm = (result:Boolean) => {
-      //父组件访问子组件方法 -> 添加 ref
-      console.log(inputRef.value.validateinput())
-      console.log('12313',result)
-    }
-    const emailRef = reactive ({
-      val: '',
-      error: false,
-      message: ''
+    const store = useStore()
+    const currentUser = computed(() => {
+     return store.state.user
     })
     return {
-      currentuser: user,
-      emailRef,
-      emailRules,
-      emailRefVal,
-      submitForm,
-      inputRef,
-      passwordRules
+      currentuser: currentUser,
+
     }
   }
 })

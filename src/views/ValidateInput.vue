@@ -2,7 +2,7 @@
   <div class="validate-input-container pb-3">
     <input  class="form-control" 
       :class="{'is-invalid': inputRef.error}" 
-      :value="inputRef.val"
+      v-model="inputRef.val"
       @blur="validateinput"
       v-bind:="$attrs"
       >
@@ -33,11 +33,6 @@ export default defineComponent({
       error: false,
       message: ''
     })
-    const  updateValue = (e: KeyboardEvent) => {
-      const targetValue = (e.target as HTMLInputElement).value
-      inputRef.val = targetValue
-      context.emit('update:modelValue',targetValue)
-    }
     const validateinput = () => {
       if (props.rules) {
         const allPassed = props.rules.every (rule =>{
@@ -49,9 +44,6 @@ export default defineComponent({
               break;
             case 'email':
               passed = emailreg.test(inputRef.val);
-              break;
-              case 'range':
-              passed = inputRef.val.length > 20;
               break;
             default:      
               break;
@@ -70,7 +62,6 @@ export default defineComponent({
     return {
       inputRef,
       validateinput,
-      updateValue
     }
   }
 })
