@@ -13,22 +13,28 @@
   <post-list-view :list="postList"></post-list-view>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent,computed} from 'vue';
 import { useRoute } from 'vue-router';
 import { testPosts, ColumnPros,testData} from '@/testData';
 import  postListView from './PostList.vue'
+import { useStore } from 'vuex';
+import { GlobalDataProps } from '../store';
 export default defineComponent({
   components: {
     postListView
   },
   setup(props) {
     const route = useRoute()
+    const store = useStore<GlobalDataProps>()
     const currentId = +route.params.id
-    const currentColumn =  testData.find(e => e.id === currentId)
-    const postList = testPosts.filter(post => post.columnId === currentId)
+    const currentColumn =  computed(() => store.getters.getColumnById())
+    const postList = computed(() => store.getters.getPostsById(currentId))
+    const bigger = computed(() => store.getters.biggerColumnsLen)
+
     return {
       currentColumn,
-      postList
+      postList,
+      bigger
     }
   }
 })

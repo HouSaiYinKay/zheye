@@ -23,6 +23,17 @@ var store = vuex_1.createStore({
         login: function (state) {
             state.user = __assign(__assign({}, state.user), { isLogin: true, name: 'myname' });
         }
+    },
+    getters: {
+        biggerColumnsLen: function (state) {
+            return state.columns.filter(function (c) { return c.id > 1; }).length;
+        },
+        getColumnById: function (state) { return function (id) {
+            return state.columns.find(function (c) { return c.id === id; });
+        }; },
+        getPostsById: function (state) { return function (pid) {
+            return state.posts.filter(function (p) { return p.id === pid; });
+        }; }
     }
 });
 exports["default"] = store;
